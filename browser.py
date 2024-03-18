@@ -7,7 +7,7 @@ import os
 import time
 
 class Browser:
-    def __init__(self, driverPath):
+    def __init__(self):
         self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(3)
         self.waitTime = 1 # wait 1 second for loading
