@@ -18,12 +18,20 @@ def main():
     page = brsr.getPageSource() 
     soup = bs(page, "html.parser")
 
+    #Using user-agent
+    raw_arr = []
+    filtered_data = soup.find_all("div", attrs={"class":"list-3U7_4"}) #data-tooltip-title
+    pretty = filtered_data[0].prettify()
+    for i in range(1,21):
+        prd = soup.find_all("div", attrs={"data-uniqid":str(i)})
+        raw_arr.append(prd)
+    
     #40 items
-    titles = soup.find_all("div", attrs={"class":"_6q6qVUF5 _1UrrHYym", "data-tooltip-fixed":"false" ,"data-tooltip-hidden":"false"}) #data-tooltip-title
-    rate = soup.find_all("div", attrs={"class":"WCDudEtm _2JVm1TM2", "role":"link"})#arai-label
-    sales_num = soup.find_all("span", attrs={"class":"_1GKMA1Nk _3ByJ_6zs", "data-type":"saleTips"})#arai-label
-    prices = soup.find_all("span", attrs={"aria-hidden":"true", "class":"LiwdOzUs"}) #text
-    rate_num = soup.find_all("span", attrs={"class":"_3CizNywp"}) #text
+    # titles = soup.find_all("div", attrs={"class":"_6q6qVUF5 _1UrrHYym", "data-tooltip-fixed":"false" ,"data-tooltip-hidden":"false"}) #data-tooltip-title
+    # rate = soup.find_all("div", attrs={"class":"WCDudEtm _2JVm1TM2", "role":"link"})#arai-label
+    # sales_num = soup.find_all("span", attrs={"class":"_1GKMA1Nk _3ByJ_6zs", "data-type":"saleTips"})#arai-label
+    # prices = soup.find_all("span", attrs={"aria-hidden":"true", "class":"LiwdOzUs"}) #text
+    # rate_num = soup.find_all("span", attrs={"class":"_3CizNywp"}) #text
 
     products = {
         "titles":titles,

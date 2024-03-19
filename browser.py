@@ -9,10 +9,10 @@ import time
 
 class Browser:
     def __init__(self):
-        # chrome_options = Options()
-        # chrome_options.add_argument("--user-agent=Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36")
-        # self.driver = webdriver.Chrome(options=chrome_options)
-        self.driver = webdriver.Chrome()
+        chrome_options = Options()
+        chrome_options.add_argument("--user-agent=Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36")
+        self.driver = webdriver.Chrome(options=chrome_options)
+        # self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(3)
         self.waitTime = 0.5 # wait 1 second for loading
         self.urlList = []
