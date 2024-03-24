@@ -4,19 +4,42 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from selenium_stealth import stealth
+
 import time
 
 
 class Browser:
     def __init__(self):
-        chrome_options = Options()
-        chrome_options.add_argument("--user-agent=Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36")
-        self.driver = webdriver.Chrome(options=chrome_options)
-        # self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(3)
+        self.driver = self.createStealthDriver()
+
         self.waitTime = 0.5 # wait 1 second for loading
         self.urlList = []
 
+    def createStealthDriver(self):
+        chrome_options = Options()        
+        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+        chrome_options.add_argument('--disable-popup-blocking')
+        chrome_options.add_argument('--start-maximized')
+        chrome_options.add_argument('--disable-extensions')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+
+        driver = webdriver.Chrome(options=chrome_options)
+
+        stealth(
+            driver=driver,
+            user_agent= "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36",
+            languages=["ko"],
+            vendor="Google Inc.",
+            platform="Win32",
+            webgl_vendor="Intel Inc.",
+            renderer="Intel Iris OpenGL Engine",
+            fix_hairline=True,
+        )
+        return driver
+        
     def goToPage(self,url):
         self.driver.get(url)
     

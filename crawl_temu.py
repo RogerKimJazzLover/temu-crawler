@@ -14,7 +14,8 @@ def extract_text(arr:list,keyword:str) -> list:
 
 def main():
     brsr = Browser()    
-    brsr.goToPage("https://www.temu.com/kr/channel/best-sellers.html")
+    # brsr.goToPage("https://www.temu.com/kr/channel/best-sellers.html")
+    brsr.goToPage("https://shopping.naver.com")
     page = brsr.getPageSource() 
     soup = bs(page, "html.parser")
 
