@@ -8,9 +8,9 @@ from selenium_stealth import stealth
 
 import time
 
-
 class Browser:
     def __init__(self):
+        self.user_agents = ["Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36"]
         self.driver = self.createStealthDriver()
 
         self.waitTime = 0.5 # wait 1 second for loading
@@ -18,7 +18,7 @@ class Browser:
 
     def createStealthDriver(self):
         chrome_options = Options()        
-        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
         chrome_options.add_argument('--disable-popup-blocking')
         chrome_options.add_argument('--start-maximized')
@@ -30,7 +30,7 @@ class Browser:
 
         stealth(
             driver=driver,
-            user_agent= "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36",
+            user_agent= self.user_agents[0],
             languages=["ko"],
             vendor="Google Inc.",
             platform="Win32",
