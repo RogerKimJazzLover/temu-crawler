@@ -25,11 +25,21 @@ def get_element_with_repeated_clases(repeated_classes: dict, filtered_data: bs4.
     for key, value in elements.items():
         element = filtered_data[0].find_all(attrs={"class":key})
         elements[key] = element
+    '''
+    쓸모있는 class 명:
+    1. price
+    2. title
+    3. rank-product-item__r
+    4. item-r__t
+    2. rank-product-item
+    '''
     return elements
 
 def main():
     brsr = Browser()    
     brsr.goToPage("https://asia.shein.com/campaigns/mostpopularitems")
+    brsr.scrollPageToBottom()
+    brsr.scrollPageToBottom()
     page = brsr.getPageSource() 
     soup = bs(page, "html.parser")
     print(type(soup))
@@ -40,6 +50,10 @@ def main():
     print(type(filtered_data[0]))
     repeated_classes = get_repeated_classes(soup=filtered_data)
     elements = get_element_with_repeated_clases(repeated_classes, filtered_data)
+
+    # filtering only the ones I need
+    desired_keys = ['price', 'title', 'rank-product-item__r', 'item-r__t', 'rank-product-item']
+    elements = {key: elements[key] for key in desired_keys}
 
     brsr.driver.quit()
 
