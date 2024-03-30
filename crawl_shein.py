@@ -39,15 +39,13 @@ def main():
     brsr = Browser()    
     brsr.goToPage("https://asia.shein.com/campaigns/mostpopularitems")
     brsr.scrollPageToBottom()
+    brsr.clickButton("/html/body/div[1]/div[1]/div/div/div/div[4]/button")
     brsr.scrollPageToBottom()
     page = brsr.getPageSource() 
     soup = bs(page, "html.parser")
-    print(type(soup))
 
     # filtered_data = soup.find_all("div", attrs={"infinite-scroll-disabled":"scrollDisabled"})
     filtered_data = soup.find_all("ul", attrs={"class":"list-block"})
-    print(type(filtered_data))
-    print(type(filtered_data[0]))
     repeated_classes = get_repeated_classes(soup=filtered_data)
     elements = get_element_with_repeated_clases(repeated_classes, filtered_data)
 

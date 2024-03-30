@@ -10,7 +10,12 @@ import time
 
 class Browser:
     def __init__(self):
-        self.user_agents = ["Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36"]
+        self.user_agents = [
+            #Mobile
+            "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36",
+            #PC
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+        ]
         self.driver = self.createStealthDriver()
 
         self.waitTime = 0.5 # wait 1 second for loading
@@ -18,9 +23,9 @@ class Browser:
 
     def createStealthDriver(self):
         chrome_options = Options()        
-        chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-        chrome_options.add_argument('--disable-popup-blocking')
+        # chrome_options.add_argument('--disable-popup-blocking')
         chrome_options.add_argument('--start-maximized')
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--no-sandbox')
@@ -30,7 +35,7 @@ class Browser:
 
         stealth(
             driver=driver,
-            user_agent= self.user_agents[0],
+            user_agent= self.user_agents[1],
             languages=["ko"],
             vendor="Google Inc.",
             platform="Win32",
@@ -45,6 +50,10 @@ class Browser:
     
     def getPageSource(self):
         return self.driver.page_source
+
+    def clickButton(self, x_path: str):
+        button = self.driver.find_element(By.XPATH, x_path)
+        button.click()
 
     # def expandComments(self):
     #     try:
