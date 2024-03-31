@@ -27,11 +27,15 @@ def get_element_with_repeated_clases(repeated_classes: dict, filtered_data: bs4.
         elements[key] = element
     '''
     쓸모있는 class 명:
-    1. price
-    2. title
-    3. rank-product-item__r
-    4. item-r__t
-    2. rank-product-item
+    Mobile:
+        1. price
+        2. title
+        3. rank-product-item__r
+        4. item-r__t
+        5. rank-product-item
+    PC:
+        1. S-product-item__price
+        2. S-product-item__name
     '''
     return elements
 
@@ -40,17 +44,18 @@ def main():
     brsr.goToPage("https://asia.shein.com/campaigns/mostpopularitems")
     brsr.scrollPageToBottom()
     brsr.clickButton("/html/body/div[1]/div[1]/div/div/div/div[4]/button")
+    time.sleep(1)
     brsr.scrollPageToBottom()
     page = brsr.getPageSource() 
     soup = bs(page, "html.parser")
 
-    # filtered_data = soup.find_all("div", attrs={"infinite-scroll-disabled":"scrollDisabled"})
-    filtered_data = soup.find_all("ul", attrs={"class":"list-block"})
+    filtered_data = soup.find_all("div", attrs={"class":"product-list"})
     repeated_classes = get_repeated_classes(soup=filtered_data)
     elements = get_element_with_repeated_clases(repeated_classes, filtered_data)
 
     # filtering only the ones I need
-    desired_keys = ['price', 'title', 'rank-product-item__r', 'item-r__t', 'rank-product-item']
+    # For mobile: desired_keys = ['price', 'title', 'rank-product-item__r', 'item-r__t', 'rank-product-item']
+    desired_keys = ["S-product-item__price", "S-product-item__name"]
     elements = {key: elements[key] for key in desired_keys}
 
     brsr.driver.quit()

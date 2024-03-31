@@ -23,7 +23,7 @@ class Browser:
 
     def createStealthDriver(self):
         chrome_options = Options()        
-        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
         # chrome_options.add_argument('--disable-popup-blocking')
         chrome_options.add_argument('--start-maximized')
@@ -53,7 +53,8 @@ class Browser:
 
     def clickButton(self, x_path: str):
         button = self.driver.find_element(By.XPATH, x_path)
-        button.click()
+        # button.click()
+        self.driver.execute_script("arguments[0].click();", button)
 
     # def expandComments(self):
     #     try:
