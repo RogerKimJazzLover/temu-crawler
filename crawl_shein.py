@@ -57,7 +57,10 @@ def main():
     brsr.scrollPageToBottom()
     brsr.clickButton("/html/body/div[1]/div[1]/div/div/div/div[4]/button")
     time.sleep(1)
-    brsr.scrollPageToBottom()
+
+    for _ in range(50):
+        brsr.scrollPageToBottom()
+        time.sleep(0.5)
     page = brsr.getPageSource() 
     soup = bs(page, "html.parser")
     brsr.driver.quit()
@@ -80,7 +83,7 @@ def main():
     #Defining data for csv
     elements = pd.DataFrame(elements)
     elements.rename(columns = {'S-product-item__price' : '가격', 'S-product-item__name' : '상품명'}, inplace = True)
-    elements.to_csv("./data/shein_most_popular_item.csv", encoding="euc-kr", index=False)
+    elements.to_csv("./data/shein_most_popular_item.csv", encoding="utf-16", index=False)
     # print(tabulate(elements, headers='keys', tablefmt='psql'))
 
 if __name__ == "__main__":
