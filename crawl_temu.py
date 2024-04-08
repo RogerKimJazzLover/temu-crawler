@@ -1,3 +1,7 @@
+'''
+LEGACY CODE
+DOESN'T REALLY WORK
+'''
 import time
 from browser import Browser
 from bs4 import BeautifulSoup as bs
