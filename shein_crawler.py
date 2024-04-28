@@ -91,5 +91,5 @@ class SheinCrawler():
         #Defining data for csv
         elements = pd.DataFrame(elements)
         elements.rename(columns = {'S-product-item__price' : '가격', 'S-product-item__name' : '상품명'}, inplace = True)
-        elements.to_csv(f"./data/{date}shein_most_popular_item.csv", encoding="utf-16", index=False)
+        elements.to_csv(f"./data/{date}_shein_most_popular_item.csv", encoding="utf-16", index=False)
         # print(tabulate(elements, headers='keys', tablefmt='psql'))
